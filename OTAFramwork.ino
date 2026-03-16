@@ -161,8 +161,8 @@ void startWiFiManager() {
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\n--- SYSTEM BOOT ---");
-  
+  delay(500);
+    
   lcd.begin(); 
   lcd.clear();
   lcd.backlight(); 
