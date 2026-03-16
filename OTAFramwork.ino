@@ -168,12 +168,13 @@ void setup() {
 
   // เริ่มต้น I2C ด้วยขาที่กำหนด
   Wire.begin(SDA_PIN, SCL_PIN);
+  Wire.setTimeOut(100); // ถ้าติดต่อไม่ได้ใน 100ms ให้ข้ามไปเลย (กันค้าง)
     
   lcd.begin(); 
   lcd.clear();
   lcd.backlight(); 
   lcd.setCursor(0, 0); lcd.print("--- SYSTEM BOOT ---");
-  lcd.setCursor(0, 1); lcd.print("    Hardware Init.");
+  lcd.setCursor(0, 1); lcd.print("   Hardware Init.");
 
   pinMode(LedHeartBeat, OUTPUT); 
   pinMode(ledPin, OUTPUT); 
@@ -212,6 +213,8 @@ void setup() {
   }
 
   // ล้างจอและบังคับแสดงหน้า 0 ทันที
+
+  lcd.setCursor(0, 2); lcd.print("    Ready");
   lcd.clear(); 
   displayPage = 0;
   updateLCD();
