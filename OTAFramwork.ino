@@ -168,6 +168,9 @@ void setup() {
   lcd.backlight(); 
   lcd.setCursor(0, 0); lcd.print("--- SYSTEM BOOT ---");
   lcd.setCursor(0, 1); lcd.print("    Hardware Init.");
+
+  Serial.println("[SYS] Booting...");
+  Serial.println("[SYS] Hardware Init.");
   
   pinMode(LedHeartBeat, OUTPUT); 
   pinMode(ledPin, OUTPUT); 
@@ -185,11 +188,10 @@ void setup() {
   lcd.setCursor(0, 2); lcd.print("Connect to WiFi...");
   lcd.setCursor(0, 3);
   if (WiFi.SSID() != "") lcd.print("SSID: " + WiFi.SSID().substring(0, 14));
-  else lcd.print("SSID: Not Found!");
-  
-  WiFiManager wm;
-  wm.setConfigPortalTimeout(60); 
-  wm.setAPCallback([](WiFiManager *myWM) {
+  else lcd.print("SSID: Not Found!");   
+    WiFiManager wm;
+    wm.setConfigPortalTimeout(60); 
+    wm.setAPCallback([](WiFiManager *myWM) {
     lcd.clear();
     lcd.setCursor(0, 0); lcd.print("--- CONFIG MODE ---");
     lcd.setCursor(0, 1); lcd.print("1.Connect WiFi Name");
@@ -201,6 +203,14 @@ void setup() {
     isOnline = true;
     ArduinoOTA.setHostname(fullHostname.c_str()); 
     ArduinoOTA.begin();
+
+    // พิมพ์สถานะ Booting
+    Serial.println("\n==============================");
+    Serial.print("[SYS] Wifi Name : \""); Serial.print(WiFi.SSID()); Serial.println("\"");
+    Serial.print("[SYS] IP Address: "); Serial.println(WiFi.localIP());
+    Serial.print("[SYS] Hostname  : "); Serial.println(fullHostname);
+    Serial.print("[SYS] Full MAC  : "); Serial.println(macAddrStr);
+    Serial.println("==============================\n");
 
     server.on("/", HTTP_GET, []() { server.send(200, "text/html", getSharedHTML(false)); });
     server.on("/update", HTTP_GET, []() { server.send(200, "text/html", getSharedHTML(true)); });
