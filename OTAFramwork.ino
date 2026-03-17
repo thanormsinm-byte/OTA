@@ -11,7 +11,7 @@
 #include <LiquidCrystal_I2C.h>
 
 // --- [ ส่วนที่ 1: การตั้งค่าระบบ ] ---
-float currentVersion = 0.9; 
+float currentVersion = 0.5; 
 const String versionURL  = "https://raw.githubusercontent.com/thanormsinm-byte/OTA/main/version.json";
 const String firmwareURL = "https://raw.githubusercontent.com/thanormsinm-byte/OTA/main/OTA.bin";
 
@@ -87,13 +87,13 @@ void updateLCD() {
     lcd.setCursor(0, 2); lcd.print("By  : Thanormsin.M");
     lcd.setCursor(0, 3); lcd.print("Tel.: 081-906 5291");
   } else if (displayPage == 1) {  
-    lcd.setCursor(0, 0); lcd.print("Dev. : "); lcd.print(fullHostname);
+    lcd.setCursor(0, 0); lcd.print("Dev.: "); lcd.print(fullHostname);
     if (isOnline) {
-      lcd.setCursor(0, 1); lcd.print("WiFi : "); lcd.print(WiFi.SSID().substring(0,12));
-      lcd.setCursor(0, 2); lcd.print("IP   : "); lcd.print(WiFi.localIP().toString());
+      lcd.setCursor(0, 1); lcd.print("WiFi: "); lcd.print(WiFi.SSID().substring(0,12));
+      lcd.setCursor(0, 2); lcd.print("IP  : "); lcd.print(WiFi.localIP().toString());
     } else {
-      lcd.setCursor(0, 1); lcd.print("WiFi : Disconnected");
-      lcd.setCursor(0, 2); lcd.print("IP   : 0.0.0.0");
+      lcd.setCursor(0, 1); lcd.print("WiFi: Disconnected");
+      lcd.setCursor(0, 2); lcd.print("IP  : 0.0.0.0");
     }
     lcd.setCursor(0, 3); lcd.print("MC:"); lcd.print(macAddrStr);  
 
