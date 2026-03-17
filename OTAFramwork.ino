@@ -11,7 +11,7 @@
 #include <LiquidCrystal_I2C.h>
 
 // --- [ ส่วนที่ 1: การตั้งค่าระบบ ] ---
-float currentVersion = 1.0; 
+float currentVersion = 0.9; 
 const String versionURL  = "https://raw.githubusercontent.com/thanormsinm-byte/OTA/main/version.json";
 const String firmwareURL = "https://raw.githubusercontent.com/thanormsinm-byte/OTA/main/OTA.bin";
 
@@ -160,6 +160,7 @@ void checkGitHubUpdate() {
 
       if (newVersion > currentVersion) {
         Serial.println("[OTA] >>> Found New Fw. <<<");
+        Serial.println("[OTA] Update in progress");
         lcd.clear();
         lcd.setCursor(0, 0); lcd.print("    ----OTA----");
         lcd.setCursor(0, 1); lcd.print("Ver.:" + String(newVersion, 1));
